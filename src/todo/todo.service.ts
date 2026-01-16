@@ -36,4 +36,14 @@ export class TodoService {
         Object.assign(todo, updateTodoDto);
         return todo;
     }
+
+    deleteTodo(id: number): string{
+        const index = this.todos.findIndex(todo => todo.id === id)
+
+        if(index === -1){
+            throw new NotFoundException('Todo not found');
+        }
+        this.todos.splice(index, 1)
+        return 'Todo deleted successfully!'
+    }
 }
