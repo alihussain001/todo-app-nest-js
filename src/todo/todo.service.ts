@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { Todo } from './interface/todo.interface';
+import { UpdateTodoDto } from './dto/update-todo.dto';
 
 @Injectable()
 export class TodoService {
@@ -26,6 +27,13 @@ export class TodoService {
         if(!todo){
             throw new NotFoundException('Todo not found');
         }
+        return todo;
+    }
+
+    updateTodo(id:number, updateTodoDto: UpdateTodoDto): Todo{
+        const todo = this.getTodoById(id);
+
+        Object.assign(todo, updateTodoDto);
         return todo;
     }
 }
